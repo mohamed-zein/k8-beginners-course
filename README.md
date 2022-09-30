@@ -6,4 +6,17 @@ The course is provided by [KodeKloud](https://kodekloud.com/) Through [Udemy](ht
 
 The course [Notes and Slides](/Kubernetes-For-Beginners-Mumshad_Mannambeth.pdf)
 
-Unit-1 of the course is just an introduction to the course structure.
+## Course Outline
+1. Introduction  
+    This unit is just an introduction to the course structure.
+2. Kubernetes Overview.
+3. Setup Kubernates.
+4. Kubernetes Concepts.
+5. YAML Introduction.
+6. Kubernetes Concepts - PODs, ReplicaSets, Deployment.
+7. Networking in Kubernetes.
+8. Services
+9. Microservices Architecture.
+10. Kebernates on Cloud.
+11. Conclusion.
+12. Appendix - Setup Multi Node cluster using Kubeadm.
