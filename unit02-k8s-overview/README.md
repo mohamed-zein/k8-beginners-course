@@ -14,3 +14,22 @@
 ![Container vs Image](./images/containers-vs-images.jpg)
 * An image is a package or a template, just like a VM template that you might have worked with in the virtualization world. It is used to create one or more containers.
 * Containers are running instances off images that are isolated and have their own environments and set of processes.
+
+## Container Orchestration
+Container Orchestration is: 
+* The whole process of automatically deploying and managing containers.
+* Orchestrate the connectivity between the containers and automatically scale up or down based on the load.
+
+### Orchestration Technologies
+Examples of Orchestration Technologies
+1. [Docker Swarms](https://docs.docker.com/engine/swarm/):
+    * Easy to Setup and get started.
+    * Lacks some of the advanced autoscaling features required for complex applications.
+2. [Apache Mesos](https://mesos.apache.org/):
+    * Quite difficult to setup and get started.
+    * Supports many advanced features.
+3. [Kubernetes](https://kubernetes.io/): 
+    * The most popular of it all.
+    * Bit difficult to setup and get started. 
+    * Provides a lot of options to customize deployments and supports deployment of complex architectures.
+    * Supported on all public cloud service providers like GCP, Azure and AWS.
