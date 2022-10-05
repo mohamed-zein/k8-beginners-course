@@ -54,6 +54,7 @@ Examples of Orchestration Technologies
 
 ### Components
 When you install Kubernetes on a System, you are actually installing the following components: 
+![Components](./images/components.jpg)
 #### An API Server:
 * The API server acts as the front end for kubernetes. 
 * The users, management devices, Command line interfaces all talk to the API server to interact with the kubernetes cluster. 
@@ -88,3 +89,20 @@ How are these [components](#components) distributed across different types of se
     * [Container Runtime](#a-container-runtime) to run containers on a node.
     * [kubelet agent](#a-kubelet-service): is responsible for interacting with the master to provide health information of the worker node and carry out
 actions requested by the master on the worker nodes.
+
+### kubectl
+**kubectl** is a tool used to deploy and manage applications on a Kubernetes cluster to get cluster information, get the status of nodes in the cluster and many
+other things. Examples:
+* The `kubectl run` command is used to deploy an application on the cluster.
+    ```console
+    kubectl run hello-minikube
+    ```
+* The `kubectl cluster-info` command is used to view information about the cluster.
+    ```console
+    kubectl cluster-info
+    ```
+* The `kubectl get nodes` command is used to list all the nodes of the cluster
+    ```console
+    kubectl get nodes
+    ```
+More `kubectl` commands will be covered later in the course.
