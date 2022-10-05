@@ -106,3 +106,5 @@ other things. Examples:
     kubectl get nodes
     ```
 More `kubectl` commands will be covered later in the course.
+
+[<<Previous](../README.md) | [Next>>]()
