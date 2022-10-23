@@ -10,7 +10,7 @@ The course [Notes and Slides](/Kubernetes-For-Beginners-Mumshad_Mannambeth.pdf)
 1. Introduction  
     This unit is just an introduction to the course structure.
 2. [Kubernetes Overview](./unit02-k8s-overview/README.md).
-3. Setup Kubernates.
+3. [Setup Kubernates](./unit03-setup-k8/README.md).
 4. Kubernetes Concepts.
 5. YAML Introduction.
 6. Kubernetes Concepts - PODs, ReplicaSets, Deployment.
