@@ -19,5 +19,8 @@ So you need 3 things to get this working, you must have a hypervisor installed, 
 
 ![MiniKube Installation](./images/minikube.jpg)
 
+## Installation Steps
+1. First we need to install [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl) tool. This will allow minikube to easily configure kubectl to manage the cluster.
+2. Install minikube using the [installation manual](https://minikube.sigs.k8s.io/docs/start/).
 
 [<<Previous](../unit02-k8s-overview/README.md) | [Next>>]()
