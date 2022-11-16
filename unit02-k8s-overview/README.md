@@ -107,4 +107,4 @@ other things. Examples:
     ```
 More `kubectl` commands will be covered later in the course.
 
-[<<Previous](../README.md) | [Next>>]()
+[<<Previous](../README.md) | [Next>>](../unit03-setup-k8/README.md)
