@@ -49,4 +49,16 @@ kubectl run nginx --image nginx
 * In this case we see the pod is in a **ContainerCreating** state and soon changes to a Running state when it is actually **Running**.
 * In the current state we haven't made the web server accessible to external users. You can access it internally from the Node though.
 
+* When providing the _wide_ option for the `get pods` command, we get extra info:
+
+    ```console
+    kubectl get pods -o wide
+    ```
+
+* We can also use `kubectl describe pod <pod_name>` command to get more detailed info about a POD.
+
+    ```console
+    kubectl describe pod nginx
+    ```
+
 [<<Previous](../unit03-setup-k8/README.md) | [Next>>]()
