@@ -12,7 +12,7 @@ The course [Notes and Slides](/Kubernetes-For-Beginners-Mumshad_Mannambeth.pdf)
 2. [Kubernetes Overview](./unit02-k8s-overview/README.md).
 3. [Setup Kubernates](./unit03-setup-k8/README.md).
 4. [Kubernetes Concepts](./unit04-k8s-concepts/README.md).
-5. YAML Introduction.
+5. [YAML Introduction](./unit05-yaml-introduction/README.md).
 6. Kubernetes Concepts - PODs, ReplicaSets, Deployment.
 7. Networking in Kubernetes.
 8. Services
