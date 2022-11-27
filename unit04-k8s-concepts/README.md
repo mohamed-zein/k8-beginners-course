@@ -61,4 +61,8 @@ kubectl run nginx --image nginx
     kubectl describe pod nginx
     ```
 
+## Extra Resources
+* [Kubernetes Concepts](https://kubernetes.io/docs/concepts/)
+* [Pod Overview](https://kubernetes.io/docs/concepts/workloads/pods/)
+
 [<<Previous](../unit03-setup-k8/README.md) | [Next>>]()
