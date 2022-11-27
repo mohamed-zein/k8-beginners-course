@@ -48,3 +48,5 @@ kubectl run nginx --image nginx
 
 * In this case we see the pod is in a **ContainerCreating** state and soon changes to a Running state when it is actually **Running**.
 * In the current state we haven't made the web server accessible to external users. You can access it internally from the Node though.
+
+[<<Previous](../unit03-setup-k8/README.md) | [Next>>]()
