@@ -94,15 +94,15 @@ actions requested by the master on the worker nodes.
 **kubectl** is a tool used to deploy and manage applications on a Kubernetes cluster to get cluster information, get the status of nodes in the cluster and many
 other things. Examples:
 * The `kubectl run` command is used to deploy an application on the cluster.
-    ```console
+    ```bash
     kubectl run hello-minikube
     ```
 * The `kubectl cluster-info` command is used to view information about the cluster.
-    ```console
+    ```bash
     kubectl cluster-info
     ```
 * The `kubectl get nodes` command is used to list all the nodes of the cluster
-    ```console
+    ```bash
     kubectl get nodes
     ```
 More `kubectl` commands will be covered later in the course.
