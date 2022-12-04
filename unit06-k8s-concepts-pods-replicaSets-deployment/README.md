@@ -10,7 +10,7 @@ This section is about creating a POD using a YAML based configuration file.
     * Other possible values here could be `ReplicaSet` or `Deployment` or `Service`:
         Kind | Version
         -----|--------
-        POD | v1
+        Pod | v1
         Service | v1
         ReplicaSet | apps/v1
         Deployment | apps/v1
@@ -42,6 +42,10 @@ spec:
 
     ```bash
     kubectl create -f pod-definition.yml
+    ```
+* Also, we can use the `apply` command:
+    ```bash
+    kubectl apply -f pod-definition.yml
     ```
 
 * To check running pods:
