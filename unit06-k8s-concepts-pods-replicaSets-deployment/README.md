@@ -1,5 +1,5 @@
 # Kubernetes Concepts - PODs, ReplicaSets, Deployment
-
+## PODs
 This section is about creating a POD using a YAML based configuration file.
 
 * Kubernetes uses YAML files as input for the creation of objects such as PODs, Replicas, Deployments, Services etc.
@@ -34,10 +34,9 @@ spec:
   containers:
   - name: nginx-container
     image: nginx
-
 ```
 
-## Commands 
+### Commands 
 * Once the file is created, run the command `kubectl create -f` followed by the file name which is _pod-definition.yml_ and kubernetes creates the pod.
 
     ```bash
@@ -59,5 +58,28 @@ spec:
     ```bash
     kubectl describe pod myapp-pod
     ```
+
+## Tips & Tricks
+### IDEs
+* There are many IDEs that make working with YAML files easier.
+* Our prefered IDE is [vscode](https://code.visualstudio.com/) which is a free code editor that can be extended using free extensions.
+
+### vscode Extensions
+_vscode_ have a rich set extenstions that add many useful features.
+
+#### YAML
+* [YAML](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml) extension enables syntax highlighting and validation of YAML files.
+
+* Since YAML is used many technologies other than Kubernates, we can to configure the YAML extension to **validate** and **auto-complete** YAML Kubernates schema:
+
+```json
+{
+    "yaml.schemas": {
+        "kubernetes": "*.yml"
+    }
+}
+```
+
+* Code example of using the auto-complete feature of YAML extenstion is [nginx.yml](./code-example/nginx.yml)
 
 [<<Previous](../unit05-yaml-introduction/README.md) | [Next>>]()
