@@ -62,3 +62,5 @@ kubectl edit pod nginx-app
    ```bash
    kubectl delete pod nginx
    ```
+
+[<<< Back to Home](./README.md)
