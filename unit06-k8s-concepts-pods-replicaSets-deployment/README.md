@@ -62,9 +62,9 @@ spec:
 ## Tips & Tricks
 ### IDEs
 * There are many IDEs that make working with YAML files easier.
-* Our prefered IDE is [vscode](https://code.visualstudio.com/) which is a free code editor that can be extended using free extensions.
+* Our prefered IDE is [VS Code](https://code.visualstudio.com/) which is a free code editor that can be extended using free extensions.
 
-### vscode Extensions
+### VS Code Extensions
 _vscode_ have a rich set extenstions that add many useful features.
 
 #### YAML
@@ -81,5 +81,6 @@ _vscode_ have a rich set extenstions that add many useful features.
 ```
 
 * Code example of using the auto-complete feature of YAML extenstion is [nginx.yml](./code-example/nginx.yml)
+* Code example of adding environment variable(s) to container is [postgres.yml](./code-example/postgres.yml)
 
 [<<Previous](../unit05-yaml-introduction/README.md) | [Next>>]()
