@@ -21,4 +21,8 @@ The course [Notes and Slides](/Kubernetes-For-Beginners-Mumshad_Mannambeth.pdf)
 11. Conclusion.
 12. Appendix - Setup Multi Node cluster using Kubeadm.
 
+
+## Quick Review Sheet
+[Quick Review Sheet](./Review-Sheet.md)
+
 [Get Started >>>](./unit02-k8s-overview/README.md)
