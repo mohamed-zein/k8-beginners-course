@@ -38,7 +38,6 @@ spec:
 
 ### Commands 
 * Once the file is created, run the command `kubectl create -f` followed by the file name which is _pod-definition.yml_ and kubernetes creates the pod.
-
     ```bash
     kubectl create -f pod-definition.yml
     ```
@@ -46,15 +45,11 @@ spec:
     ```bash
     kubectl apply -f pod-definition.yml
     ```
-
 * To check running pods:
-
     ```bash
     kubectl get pods
     ```
-
 * To get details of **myapp-pod** pod
-
     ```bash
     kubectl describe pod myapp-pod
     ```
@@ -65,13 +60,11 @@ spec:
 * Our prefered IDE is [VS Code](https://code.visualstudio.com/) which is a free code editor that can be extended using free extensions.
 
 ### VS Code Extensions
-_vscode_ have a rich set extenstions that add many useful features.
+**VS Code** have a rich set extenstions that add many useful features.
 
 #### YAML
 * [YAML](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml) extension enables syntax highlighting and validation of YAML files.
-
 * Since YAML is used many technologies other than Kubernates, we can to configure the YAML extension to **validate** and **auto-complete** YAML Kubernates schema:
-
 ```json
 {
     "yaml.schemas": {
@@ -79,7 +72,6 @@ _vscode_ have a rich set extenstions that add many useful features.
     }
 }
 ```
-
 * Code example of using the auto-complete feature of YAML extenstion is [nginx.yml](./code-example/PODs/nginx.yml)
 * Code example of adding environment variable(s) to container is [postgres.yml](./code-example/PODs/postgres.yml)
 
