@@ -21,7 +21,7 @@ This section is about creating a POD using a YAML based configuration file.
 4. `spec`: object we are going to create, this is were we provide additional information to kubernetes pertaining to that object. 
     * This is going to be different for different objects, so its important to understand or refer to the documentation section to get the right format for each.
 
-In the [example](./code-example/pod-definition.yml), the YAML file descibes a POD which contain single container of `nginx` image.
+In the [example](./code-example/PODs/pod-definition.yml), the YAML file descibes a POD which contain single container of `nginx` image.
 
 ```yml
 apiVersion: v1
@@ -80,7 +80,7 @@ _vscode_ have a rich set extenstions that add many useful features.
 }
 ```
 
-* Code example of using the auto-complete feature of YAML extenstion is [nginx.yml](./code-example/nginx.yml)
-* Code example of adding environment variable(s) to container is [postgres.yml](./code-example/postgres.yml)
+* Code example of using the auto-complete feature of YAML extenstion is [nginx.yml](./code-example/PODs/nginx.yml)
+* Code example of adding environment variable(s) to container is [postgres.yml](./code-example/PODs/postgres.yml)
 
 [<<Previous](../unit05-yaml-introduction/README.md) | [Next>>]()
