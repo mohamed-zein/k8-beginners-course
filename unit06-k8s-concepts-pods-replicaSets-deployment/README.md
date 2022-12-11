@@ -23,6 +23,8 @@ This section is about creating a POD using a YAML based configuration file.
 
 In the [example](./code-example/PODs/pod-definition.yml), the YAML file descibes a POD which contain single container of `nginx` image.
 
+### POD example
+
 ```yml
 apiVersion: v1
 kind: Pod
@@ -74,5 +76,169 @@ spec:
 ```
 * Code example of using the auto-complete feature of YAML extenstion is [nginx.yml](./code-example/PODs/nginx.yml)
 * Code example of adding environment variable(s) to container is [postgres.yml](./code-example/PODs/postgres.yml)
+
+## Kubernates Controllers
+* Controllers are the brain behind Kubernetes.
+* They are processes that monitor kubernetes objects and respond accordingly.
+### Why Replication Controllers?
+So what is a replica and why do we need a replication controller?
+#### High Availability
+![High Availability](./images/high-availability.jpg)
+Let's assume -for some reason- our application crashes and the POD fails.
+* To prevent users from losing access to our application, we would like to have more than one instance or POD running at the same time.
+* The replication controller helps us run multiple instances of a single POD in the kubernetes cluster thus providing High Availability.
+* Even if you have a single POD, the replication controller can help by automatically bringing up a new POD when the existing one fails.
+* The replication controller ensures that the specified number of PODs are running at all times. Even if it’s just 1 or 100.
+#### Load Balancing & Scaling
+![Load Balancing & Scaling](./images/load-balancing-scaling.jpg)
+* Another reason we need replication controller is to create multiple PODs to share the load across them.
+* For example: 
+    * In this simple scenario we have a single POD serving a set of users. 
+    * When the number of users increase we deploy additional POD to balance the load across the two pods. 
+    * If the demand further increases and If we were to run out of resources on the first node, we could deploy additional PODs across other nodes in the cluster.
+    * The replication controller spans across multiple nodes in the cluster. 
+    * It helps us balance the load across multiple pods on different nodes as well as scale our application when the demand increases.
+### Replication Controller vs Replica Set
+There are two similar terms. Both have the same purpose but they are not the same. Same characteristics we discussed previously remain applicable to both these technologies.
+* **Replication Controller**: is the older technology that is being replaced by Replica Set.
+* **Replica Set**: is the new recommended way to setup replication.
+
+#### YAML definition
+As with any kubernetes definition file, we will have 4 sections.
+* `apiVersion`
+* `kind`
+* `metadata`
+* `spec`
+
+Controller Type | apiVersion | kind | metadata | spec
+----------------|------------|------|----------|-----
+Replication Controller | v1 | ReplicationController | `name`<br>`labels` | `template`<br>`replicas`<br>`selector`<br>Details [Below](#replication-controller-specs)
+Replica Set | apps/v1 | ReplicaSet | `name`<br>`labels` | `template`<br>`replicas`<br>`selector`<br>Details [Below](#replica-set-specs)
+
+
+##### Replication Controller `specs`
+* In the case of `kind: ReplicationController`, we know that it will create multiple instances of a POD so we create `template` of the POD.
+* The POD definition under `template` will be same as the [POD definition](#pod-example) like what we created before except for the first two lines which are `apiVersion` and `kind`.
+* To define how many number PODs will be launched by the the Replication Controller, we define element `replicas` which is assigned with the number of the replicas to be created.
+* **Optionally**, we can add a `selector` definition
+    * Replica Set can **ALSO** manage pods that were not created as part of the Replica Set creation.
+    * It is a criteria to define which PODs are managed by the Replication Controller.
+    * Replication Controller can **ALSO** manage pods that were not created as part of the Replication Controller creation.
+    * And it has to be written in the form of `matchLabels`.
+    * The `matchLabels` selector simply matches the labels specified under it to the labels on the PODs.
+
+##### Replication Controller `specs` example
+```yml
+spec:
+  template:
+    metadata:
+      name: myapp-pod
+      labels:
+        app: myapp
+        type: front-end
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx
+  replicas: 3
+```
+
+##### Replica Set `specs`
+* In the case of `kind: ReplicaSet`, we know that it will create multiple instances of a POD so we create `template` of the POD.
+* The POD definition under `template` will be same as the [POD definition](#pod-example) like what we created before except for the first two lines which are `apiVersion` and `kind`.
+* To define how many number PODs will be launched by the the Replication Controller, we define element `replicas` which is assigned with the number of the replicas to be created.
+* Replica Set **MUST** have a `selector` definition.
+    * Replica Set can **ALSO** manage pods that were not created as part of the Replica Set creation.
+    * And it has to be written in the form of `matchLabels`
+    * The `matchLabels` selector simply matches the labels specified under it to the labels on the PODs.
+    * The ReplicaSet selector also provides many other options for matching labels that were not available in a Replication Controller.
+
+##### Replica Set `specs` example
+```yml
+spec:
+  template:
+    metadata:
+      name: myapp-pod
+      labels:
+        app: myapp
+        type: front-end
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx
+  replicas: 3
+  selector:
+    matchLabels:
+      type: front-end
+```
+
+#### Full examples:
+* [Replication Controller](./code-example/ReplicatioControllers/rc-definition.yml)
+* [Replica Set](./code-example/ReplicaSets/replicaset-definition.yml)
+
+#### Commands
+##### Replication Controllers
+* Create Replication Controller based on YAML file
+    ```bash
+    kubectl create -f rc-definition.yml
+    ```
+* List Replication Controllers
+    ```bash
+    kubectl get replicationcontroller
+    ```
+* List Pods
+    ```bash
+    kubectl get pods
+    ```
+* Delete Replication Controller
+    ```bash
+    # Also delete underlying PODs
+    kubectl get replicationcontroller myapp-replicationcontroller
+    ```
+##### Replica Set
+* Create Replica Set based on YAML file
+    ```bash
+    kubectl create -f replicaset-definition.yml
+    ```
+* List Replica Sets
+    ```bash
+    kubectl get replicaset
+    ```
+* List Pods
+    ```bash
+    kubectl get pods
+    ```
+* Delete Replica Set
+    ```bash
+    # Also delete underlying PODs
+    kubectl get replicaset myapp-replicaset
+    ```
+
+### Labels and Selectors
+* The role of the replicaset is to monitor the pods and if any of them were to fail, deploy new ones.
+* The replica set is in FACT a process that monitors the pods.
+* Labels of PODs enable the replica sets to know which PODs to manage/monitor. 
+* Under the `selector` section we use the `matchLabels` filter and provide the same label that we used while creating the pods.
+* For the replica set to create a new POD, the `template` definition section **IS required** BECAUSE in case one of the PODs (**even PODs created outside the replica set**) were to fail in the future, the replicaset needs to create a new one to maintain the desired number of PODs.
+
+### Scale
+There are multiple ways to scale a replica set:
+1. Edit the replica set YAML definition file to modify the number of `replicas` and execute `kubectl replace` command:
+    ```bash
+    kubectl replace -f replicaset-definition.yml
+    ```
+    * Using the file name as input **will not** result in the number of replicas being updated automatically in the file.
+2. Run the `kubectl scale` command and use the `--replicas` parameter to provide the new number of replicas **and specify the same file as input**.
+    ```bash
+    kubectl scale --replicas=6 -f replicaset-definition.yml
+    ```
+3. Run the `kubectl scale` command and use the `--replicas` parameter to provide the new number of replicas and _TYPE_ and _NAME_
+    ```bash
+    kubectl scale --replicas=6 replicaset myapp-replicaset
+    ```
+    * **TYPE**: replicaset
+    * **NAME**: name of the replica set
+
+There are also options available for automatically scaling the replicaset based on load, but that is an advanced topic.
 
 [<<Previous](../unit05-yaml-introduction/README.md) | [Next>>]()
