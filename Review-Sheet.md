@@ -63,4 +63,9 @@ kubectl edit pod nginx-app
    kubectl delete pod nginx
    ```
 
+* Create a deployment based on YAML file with `--record` option
+    ```bash
+    kubectl create -f ./deployment-definition.yml --record
+    ```
+
 [<<< Back to Home](./README.md)
