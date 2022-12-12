@@ -241,4 +241,55 @@ There are multiple ways to scale a replica set:
 
 There are also options available for automatically scaling the replicaset based on load, but that is an advanced topic.
 
+## Deployment
+![Deployment](./images/deployment.jpg)
+The deployment provides us with capabilities to:
+* **Upgrade** the underlying instances seamlessly using rolling updates.
+* **Rollback** changes.
+* **Pause and Resume** changes to deployments.
+
+### Simple Deployment Use Case
+Say for example, you have many instances of a web server need to be deployed in a production envirnment.
+
+#### Rolling Updates
+* When newer versions of application builds become available on the docker registry, you would like to UPGRADE your docker instances seamlessly.
+* However, you do not want to upgrade all instances at once. This may impact users accessing our applications, so you may want to upgrade them one after the other.
+* And that kind of upgrade is known as **Rolling Updates**.
+
+#### Rollback
+* Suppose one of the upgrades you performed resulted in an unexpected error and you are asked to undo the recent update.
+* You would like to be able to **Rollback** the changes that were recently carried out.
+
+#### Pause and Resume
+* Say for example you would like to make multiple changes to your environment such as upgrading the underlying WebServer versions, as well as scaling your environment and also modifying the resource allocations etc.
+* You do not want to apply each change immediately after the command is run.
+* Instead you would like to apply a **pause** to your environment, make the changes and then **resume** so that all
+changes are rolled out together.
+
+### YAML Definition
+The contents of the deployment definition file are exactly similar to the ReplicaSet definition file, except for the `kind`, which is now going to be `Deployment`.
+
+#### Commands
+* Create a Deployment based on a YAML definition file
+    ```bash
+    kubectl create -f deployment-definition.yml
+    ```
+* List Deployments
+    ```bash
+    kubectl get deployments
+    ```
+* Deployments will automatically create a ReplicaSet
+    ```bash
+    kubectl get replicaset
+    ```
+* List all objects
+    ```bash
+    kubectl get all
+    ```
+* Describe a deployment
+    ```bash
+    kubectl describe deployment myapp-deployment
+    ```
+
+
 [<<Previous](../unit05-yaml-introduction/README.md) | [Next>>]()
