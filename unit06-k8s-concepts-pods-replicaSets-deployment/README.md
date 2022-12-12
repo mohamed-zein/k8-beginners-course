@@ -292,4 +292,101 @@ The contents of the deployment definition file are exactly similar to the Replic
     ```
 
 
+### Updates and Rollback
+#### Rollouts and Versioning in a deployment
+* Whenever you create a new deployment or upgrade the images in an existing deployment it triggers a **Rollout**.
+* A **Rollout** is the process of gradually deploying or upgrading your application containers.
+    * A new rollout creates a new Deployment revision. Let’s call it _Revision 1_.
+    * In the future when the application is upgraded - meaning when the container version is updated to a new one - a new rollout is triggered and a new deployment revision is created named _Revision 2_.
+    * This helps us keep track of the changes made to our deployment and enables us to rollback to a previous version of deployment if necessary.
+##### Rollout Command
+* You can see the status of your rollout by running the command: `kubectl rollout status` followed by the name of the deployment.
+    ```bash
+    kubectl rollout status deployment/myapp-deployment
+    ```
+* To see the revisions and history of rollout run the command: `kubectl rollout history` followed by the deployment name and this will show you the revisions.
+    ```bash
+    kubectl rollout history deployment/myapp-deployment
+    ```
+### Deployment Strategy
+![Deployment Strategy](./images/deployment-strategy.jpg)
+In the above example, we have 5 replicas of a web application instance deployed. To upgrade these instances, there are two types of deployment strategies.
+#### Recreate
+* The **Recreate** strategy is to destroy all of instances and then create newer versions of application instances. In our example,
+    1. Destroy the 5 running instances.
+    2. Then deploy 5 new instances of the new application version.
+* The problem with this strategy, is that during the period after the older versions are down and before any newer version is up, the application is down and inaccessible to users.
+* This strategy is **NOT the default** deployment strategy.
+#### Rolling Update
+* The **Rolling Update** is to take down the older version and bring up a newer version **one by one**.
+* This way the application never goes down and the upgrade is seamless.
+* **Rolling Update** is the **default** Deployment Strategy.
+* Under the hood:
+    1. When deployment is first created, it automatically creates a ReplicaSet, which in turn creates the number of PODs required.
+    2. When upgrading the application, the kubernetes deployment object creates a **NEW** ReplicaSet under the hoods and starts deploying the containers there. At the same time taking down the PODs in the **Old** ReplicaSet.
+    3. This can be seen when listing the ReplicaSets using the `kubectl get replicasets` command. Here we see the **Old ReplicaSet with 0 PODs** and the **New ReplicaSet with 5 PODs**.
+
+### `kubectl apply`
+* Updating deployment can be different things such as:
+    * Updating the application version by updating the version of docker containers used.
+    * Updating labels.
+    * Updating the number of replicas.
+    * ..., etc.
+* To update a deployment, we have 2 ways:
+    1. If we have a deployment definition file, we modify the file then run the `kubectl apply` command to apply the changes.
+        ```bash
+        kubectl apply -f ./deployment-definition.yml
+        ```
+    2. There is ANOTHER way to do the same thing. You could use the `kubectl set image` command to update the image of your application. 
+        * Doing it this way will result in the deployment definition file having a different configuration. 
+        * So you must be careful when using the same definition file to make changes in the future.
+       ```bash
+       kubectl set image deployment/myapp-deployment nginx=nginx:1.23
+       ```
+* Using any of the 2 ways will result in a new rollout is triggered and a new revision of the deployment is created.
+
+### Rollback
+* Kubernetes deployments allow you to rollback to a previous revision.
+* To undo a change run the command `kubectl rollout undo` followed by the name of the deployment.
+* The deployment will then destroy the PODs in the new ReplicaSet and bring the older ones up in the old ReplicaSet.
+* When you compare the output of the `kubectl get replicasets` command, before and after the rollback, you will be able to notice this difference.
+    * **Before** the rollback the first ReplicaSet had 0 PODs and the new replicaset had 5 PODs.
+    * **After** the rollback is finished, this is reversed.
+### `kubectl run`
+```bash
+kubectl run nginx --image=nginx
+```
+* This command in fact creates a deployment and not just a POD.
+* This is why the output of the command says `deployment "nginx" created`.
+* Using a definition file is recommended though as you can save the file, check it into the code repository and modify it later as required.
+
+### Summarize Commands
+* Create
+    ```bash
+    kubectl create -f deployment-definition.yml
+    ```
+* Get
+    ```bash
+    kubectl get deployments
+    ```
+* Update
+    ```bash
+    kubectl apply -f deployment-definition.yml
+    ```
+   ```bash
+   kubectl set image deployment/myapp-deployment nginx=nginx:1.9.1
+   ```
+* Status
+    ```bash
+    kubectl rollout status deployment/myapp-deployment
+    ```
+* History
+    ```bash
+    kubectl history status deployment/myapp-deployment
+    ```
+* Rollback
+    ```bash
+    kubectl rollout undo deployment/myapp-deployment
+    ```
+
 [<<Previous](../unit05-yaml-introduction/README.md) | [Next>>]()
