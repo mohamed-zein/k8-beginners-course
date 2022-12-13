@@ -1,4 +1,5 @@
-# Kubernetes Networking - 101
+# Networking in Kibernates
+## Kubernetes Networking - 101
 ![Kubernates Networking - 101](./images/networking-101.jpg)
 At the very basics of networking in Kubernetes. We will start with a single node kubernetes cluster.
 * The node has an IP address, say it is `192.168.1.2` in this case.
