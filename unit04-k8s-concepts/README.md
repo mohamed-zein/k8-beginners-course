@@ -31,7 +31,7 @@ The `kubectl run` command deploys a docker container by creating a POD.
 
 ![kubectl](./images/kubectl.jpg)
 
-```console
+```bash
 kubectl run nginx --image nginx
 ```
 
@@ -42,7 +42,7 @@ kubectl run nginx --image nginx
 
 * How do we see the list of PODs available? The `kubectl get pods` command helps us see the list of pods in our cluster
 
-    ```console
+    ```bash
     kubectl get pods
     ```
 
@@ -51,13 +51,13 @@ kubectl run nginx --image nginx
 
 * When providing the _wide_ option for the `get pods` command, we get extra info:
 
-    ```console
+    ```bash
     kubectl get pods -o wide
     ```
 
 * We can also use `kubectl describe pod <pod_name>` command to get more detailed info about a POD.
 
-    ```console
+    ```bash
     kubectl describe pod nginx
     ```
 
