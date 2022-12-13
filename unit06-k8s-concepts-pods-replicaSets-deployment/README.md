@@ -64,7 +64,7 @@ spec:
 ### VS Code Extensions
 **VS Code** have a rich set extenstions that add many useful features.
 
-#### YAML
+#### YAML Extension
 * [YAML](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml) extension enables syntax highlighting and validation of YAML files.
 * Since YAML is used many technologies other than Kubernates, we can to configure the YAML extension to **validate** and **auto-complete** YAML Kubernates schema:
 ```json
@@ -74,6 +74,14 @@ spec:
     }
 }
 ```
+
+#### Kubernates Extension
+[Kubernates Extenstion](https://marketplace.visualstudio.com/items?itemName=ms-kubernetes-tools.vscode-kubernetes-tools) adds many useful features which include:
+* View your clusters in an explorer tree view, and drill into workloads, services, pods and nodes.
+* Intellisense for Kubernetes resources and Helm charts and templates.
+* Edit Kubernetes resource manifests and apply them to your cluster.
+
+### Code Examples
 * Code example of using the auto-complete feature of YAML extenstion is [nginx.yml](./code-example/PODs/nginx.yml)
 * Code example of adding environment variable(s) to container is [postgres.yml](./code-example/PODs/postgres.yml)
 
