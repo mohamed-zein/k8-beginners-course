@@ -173,9 +173,76 @@ kubectl edit pod nginx-app
     * **NAME**: name of the replica set
 
 ## Deployment
+* YAML Definition file example
+    ```yml
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+    name: myapp-deployment
+    labels:
+        tier: frontend
+        app: nginx
+    spec:
+    selector:
+        matchLabels:
+        app: myapp
+    replicas: 6
+    template:
+        metadata:
+        name: nginx-2
+        labels:
+            app: myapp
+        spec:
+        containers:
+        - name: nginx
+            image: nginx
+    ```
+* Create a Deployment based on a YAML definition file
+    ```bash
+    kubectl create -f deployment-definition.yml
+    ```
 * Create a deployment based on YAML file with `--record` option
     ```bash
     kubectl create -f ./deployment-definition.yml --record
+    ```
+* List Deployments
+    ```bash
+    kubectl get deployments
+    ```
+* Deployments will automatically create a ReplicaSet
+    ```bash
+    kubectl get replicaset
+    ```
+* List all objects
+    ```bash
+    kubectl get all
+    ```
+* Describe a deployment
+    ```bash
+    kubectl describe deployment myapp-deployment
+    ```
+### Rollout command
+* Rollout Status
+    ```bash
+    kubectl rollout status deployment/myapp-deployment
+    ```
+* Rollout History
+    ```bash
+    kubectl rollout history deployment/myapp-deployment
+    ```
+### Update a deployment
+* Update a deployment using deployment file
+    ```bash
+    kubectl apply -f ./deployment-definition.yml
+    ```
+* Update only the image of a deployment on the fly
+    ```bash
+    kubectl set image deployment/myapp-deployment nginx=nginx:1.23
+    ```
+### Rollback
+* Rollback a deployment to a previous _Revision_.
+    ```bash
+    kubectl rollout undo deployment/myapp-deployment
     ```
 
 [<<< Back to Home](./README.md)
