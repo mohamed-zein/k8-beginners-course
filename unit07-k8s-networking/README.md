@@ -14,3 +14,5 @@ At the very basics of networking in Kubernetes. We will start with a single node
     * When you deploy multiple PODs, they all get a separate IP assigned.
     * The PODs can communicate to each other through this IP.
     * But accessing other PODs using this internal IP address **may NOT** be a good idea as it is subject to change when PODs are recreated.
+
+[<<Previous](../unit06-k8s-concepts-pods-replicaSets-deployment/README.md) | [Next>>]()
