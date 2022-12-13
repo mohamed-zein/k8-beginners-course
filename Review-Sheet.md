@@ -28,7 +28,7 @@
     ```bash
     kubectl run nginx-app --image nginx
     ```
-    * An alternative is to use option `-o yaml` to run a _Pod_ and **output** the YAML file
+    * An alternative is to use option `-o yaml` to run a _Pod_ then **output** the YAML file
        ```bash
        kubectl run nginx-app --image nginx -o yaml > nginx.yml 
        ```
@@ -46,9 +46,12 @@
     kubectl describe pod nginx
     ```
 * Create a _Pod_ based on _YAML_ file
-
     ```bash
     kubectl create -f pod-definition.yml
+    ```
+* Create a _Pod_ based on _YAML_ file and record changes
+    ```bash
+    kubectl create -f pod-definition.yml --record
     ```
 * Also, we can use the `apply` command:
     ```bash
