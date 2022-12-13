@@ -1,7 +1,6 @@
 # Unit 6: Kubernetes Concepts - PODs, ReplicaSets, Deployment
 ## PODs
 This section is about creating a POD using a YAML based configuration file.
-
 * Kubernetes uses YAML files as input for the creation of objects such as PODs, Replicas, Deployments, Services etc.
 * A kubernetes definition file always contains 4 top level fields. These are all **REQUIRED** fields, so you **MUST** have them in your configuration file
 1. `apiVersion`: This is the version of the kubernetes API we’re using to create the object. Depending on what we are trying to create we must use the **Correct** `apiVersion`
@@ -14,6 +13,7 @@ This section is about creating a POD using a YAML based configuration file.
         Service | v1
         ReplicaSet | apps/v1
         Deployment | apps/v1
+
 3. `metadata`: is data about the object like its name, labels etc. 
     * It’s **IMPORTANT** to note that under metadata, you can only specify `name` or `labels` or anything else that kubernetes expects to be under metadata. 
     * You **CANNOT** add any other property as you wish under this. However, under `labels` you **CAN** have any kind of key or value pairs as you see fit. 
@@ -22,9 +22,7 @@ This section is about creating a POD using a YAML based configuration file.
     * This is going to be different for different objects, so its important to understand or refer to the documentation section to get the right format for each.
 
 In the [example](./code-example/PODs/pod-definition.yml), the YAML file descibes a POD which contain single container of `nginx` image.
-
 ### POD example
-
 ```yml
 apiVersion: v1
 kind: Pod
@@ -37,7 +35,6 @@ spec:
   - name: nginx-container
     image: nginx
 ```
-
 ### Commands 
 * Once the file is created, run the command `kubectl create -f` followed by the file name which is _pod-definition.yml_ and kubernetes creates the pod.
     ```bash
@@ -55,15 +52,12 @@ spec:
     ```bash
     kubectl describe pod myapp-pod
     ```
-
 ## Tips & Tricks
 ### IDEs
 * There are many IDEs that make working with YAML files easier.
 * Our prefered IDE is [VS Code](https://code.visualstudio.com/) which is a free code editor that can be extended using free extensions.
-
 ### VS Code Extensions
 **VS Code** have a rich set extenstions that add many useful features.
-
 #### YAML Extension
 * [YAML](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml) extension enables syntax highlighting and validation of YAML files.
 * Since YAML is used many technologies other than Kubernates, we can to configure the YAML extension to **validate** and **auto-complete** YAML Kubernates schema:
@@ -74,17 +68,14 @@ spec:
     }
 }
 ```
-
 #### Kubernates Extension
 [Kubernates Extenstion](https://marketplace.visualstudio.com/items?itemName=ms-kubernetes-tools.vscode-kubernetes-tools) adds many useful features which include:
 * View your clusters in an explorer tree view, and drill into workloads, services, pods and nodes.
 * Intellisense for Kubernetes resources and Helm charts and templates.
 * Edit Kubernetes resource manifests and apply them to your cluster.
-
 ### Code Examples
 * Code example of using the auto-complete feature of YAML extenstion is [nginx.yml](./code-example/PODs/nginx.yml)
 * Code example of adding environment variable(s) to container is [postgres.yml](./code-example/PODs/postgres.yml)
-
 ## Kubernates Controllers
 * Controllers are the brain behind Kubernetes.
 * They are processes that monitor kubernetes objects and respond accordingly.
@@ -110,7 +101,6 @@ Let's assume -for some reason- our application crashes and the POD fails.
 There are two similar terms. Both have the same purpose but they are not the same. Same characteristics we discussed previously remain applicable to both these technologies.
 * **Replication Controller**: is the older technology that is being replaced by Replica Set.
 * **Replica Set**: is the new recommended way to setup replication.
-
 #### YAML definition
 As with any kubernetes definition file, we will have 4 sections.
 * `apiVersion`
@@ -122,8 +112,6 @@ Controller Type | apiVersion | kind | metadata | spec
 ----------------|------------|------|----------|-----
 Replication Controller | v1 | ReplicationController | `name`<br>`labels` | `template`<br>`replicas`<br>`selector`<br>Details [Below](#replication-controller-specs)
 Replica Set | apps/v1 | ReplicaSet | `name`<br>`labels` | `template`<br>`replicas`<br>`selector`<br>Details [Below](#replica-set-specs)
-
-
 ##### Replication Controller `specs`
 * In the case of `kind: ReplicationController`, we know that it will create multiple instances of a POD so we create `template` of the POD.
 * The POD definition under `template` will be same as the [POD definition](#pod-example) like what we created before except for the first two lines which are `apiVersion` and `kind`.
@@ -134,7 +122,6 @@ Replica Set | apps/v1 | ReplicaSet | `name`<br>`labels` | `template`<br>`replica
     * Replication Controller can **ALSO** manage pods that were not created as part of the Replication Controller creation.
     * And it has to be written in the form of `matchLabels`.
     * The `matchLabels` selector simply matches the labels specified under it to the labels on the PODs.
-
 ##### Replication Controller `specs` example
 ```yml
 spec:
@@ -150,7 +137,6 @@ spec:
           image: nginx
   replicas: 3
 ```
-
 ##### Replica Set `specs`
 * In the case of `kind: ReplicaSet`, we know that it will create multiple instances of a POD so we create `template` of the POD.
 * The POD definition under `template` will be same as the [POD definition](#pod-example) like what we created before except for the first two lines which are `apiVersion` and `kind`.
@@ -160,7 +146,6 @@ spec:
     * And it has to be written in the form of `matchLabels`
     * The `matchLabels` selector simply matches the labels specified under it to the labels on the PODs.
     * The ReplicaSet selector also provides many other options for matching labels that were not available in a Replication Controller.
-
 ##### Replica Set `specs` example
 ```yml
 spec:
@@ -179,11 +164,9 @@ spec:
     matchLabels:
       type: front-end
 ```
-
 #### Full examples:
 * [Replication Controller](./code-example/ReplicatioControllers/rc-definition.yml)
 * [Replica Set](./code-example/ReplicaSets/replicaset-definition.yml)
-
 #### Commands
 ##### Replication Controllers
 * Create Replication Controller based on YAML file
@@ -221,14 +204,12 @@ spec:
     # Also delete underlying PODs
     kubectl get replicaset myapp-replicaset
     ```
-
 ### Labels and Selectors
 * The role of the replicaset is to monitor the pods and if any of them were to fail, deploy new ones.
-* The replica set is in FACT a process that monitors the pods.
+* The replica set is in fact a process that monitors the pods.
 * Labels of PODs enable the replica sets to know which PODs to manage/monitor. 
 * Under the `selector` section we use the `matchLabels` filter and provide the same label that we used while creating the pods.
 * For the replica set to create a new POD, the `template` definition section **IS required** BECAUSE in case one of the PODs (**even PODs created outside the replica set**) were to fail in the future, the replicaset needs to create a new one to maintain the desired number of PODs.
-
 ### Scale
 There are multiple ways to scale a replica set:
 1. Edit the replica set YAML definition file to modify the number of `replicas` and execute `kubectl replace` command:
@@ -248,35 +229,28 @@ There are multiple ways to scale a replica set:
     * **NAME**: name of the replica set
 
 There are also options available for automatically scaling the replicaset based on load, but that is an advanced topic.
-
 ## Deployment
 ![Deployment](./images/deployment.jpg)
 The deployment provides us with capabilities to:
 * **Upgrade** the underlying instances seamlessly using rolling updates.
 * **Rollback** changes.
 * **Pause and Resume** changes to deployments.
-
 ### Simple Deployment Use Case
 Say for example, you have many instances of a web server need to be deployed in a production envirnment.
-
 #### Rolling Updates
 * When newer versions of application builds become available on the docker registry, you would like to UPGRADE your docker instances seamlessly.
 * However, you do not want to upgrade all instances at once. This may impact users accessing our applications, so you may want to upgrade them one after the other.
 * And that kind of upgrade is known as **Rolling Updates**.
-
 #### Rollback
 * Suppose one of the upgrades you performed resulted in an unexpected error and you are asked to undo the recent update.
 * You would like to be able to **Rollback** the changes that were recently carried out.
-
 #### Pause and Resume
 * Say for example you would like to make multiple changes to your environment such as upgrading the underlying WebServer versions, as well as scaling your environment and also modifying the resource allocations etc.
 * You do not want to apply each change immediately after the command is run.
 * Instead you would like to apply a **pause** to your environment, make the changes and then **resume** so that all
 changes are rolled out together.
-
 ### YAML Definition
 The contents of the deployment definition file are exactly similar to the ReplicaSet definition file, except for the `kind`, which is now going to be `Deployment`.
-
 #### Commands
 * Create a Deployment based on a YAML definition file
     ```bash
@@ -298,8 +272,6 @@ The contents of the deployment definition file are exactly similar to the Replic
     ```bash
     kubectl describe deployment myapp-deployment
     ```
-
-
 ### Updates and Rollback
 #### Rollouts and Versioning in a deployment
 * Whenever you create a new deployment or upgrade the images in an existing deployment it triggers a **Rollout**.
