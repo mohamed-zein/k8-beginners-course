@@ -51,6 +51,40 @@
 * The service then automatically selects all the PODs as endpoints to forward the external requests coming from the user.
 * The algorithm used to balance load is a **random algorithm**. Thus the service acts as a built-in load balancer to distribute load across different PODs.
 ![NodePort - Final](./images/node-port-04.jpg)
+
+#### NodePort YAML
+* [Code Example](./code-examples/NodePort/service-definition.yml)
+```yml
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp-service
+spec:
+  type: NodePort
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 30004
+  selector:
+    app: myapp
+```
+
+* Create a **Service** based on a YAML definition file
+    ```bash
+    kubectl create -f ./service-definition.yml
+    ```
+* List Services
+    ```bash
+    kubectl get service
+    ```
+* Get Service details by **minikube**
+    ```bash
+    minikube service myapp-service
+    ```
+* Get ONLY Service URL by **minikube**
+    ```bash
+    minikube service myapp-service --url
+    ```
 ### ClusterIP
 * **ClusterIP** service creates a virtual IP inside the cluster to enable communication between different services such as a set of front end servers to a set of backend servers.
 ### LoadBalancer
