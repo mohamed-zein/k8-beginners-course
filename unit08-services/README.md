@@ -86,6 +86,44 @@
     ```
 ### ClusterIP
 * **ClusterIP** service creates a virtual IP inside the cluster to enable communication between different services such as a set of front end servers to a set of backend servers.
+![ClusterIP](./images/cluster-ip.jpg)
+* A full stack web application typically has different kinds of PODs hosting different parts of an application.
+    * You may have a number of PODs running:
+    * A front-end web server
+    * Another set of PODs running a backend server
+    * A set of PODs running a key value store like Redis
+    * Another set of PODs running a persistent database like MySQL etc.
+* The web front end servers need to connect to the backend workers and the backend workers need to connect to database as well as the redis services.
+* The PODs all have an IP address assigned to them as we can see on the screenshot.
+* But these IPs as we know are not static, these PODs can go down anytime and new PODs are created all the time and so we CANNOT rely on these IP addresses for internal communication within the application.
+* A kubernetes service can help us group these PODs together and provide a single interface to access the PODs in a group.
+* For example:
+    * A service created for the backend PODs will help group all the backend PODs together and provide a single interface for other PODs to access this service.
+    * The requests are forwarded to one of the PODs under the service randomly.
+    * Similarly, create additional services for Redis and allow the backend PODs to access the Redis system through this service.
+* This enables us to easily and effectively deploy a microservices based application on kubernetes cluster.
+* Each layer can now scale or move as required without impacting communication between the various services.
+* Each service gets an IP and name assigned to it inside the cluster and that is the name that should be used by other PODs to access the service.
+* This type of service is known as **ClusterIP**
+#### YAML definition
+* Under ports we have a `targetPort` and `port`:
+    * **targetPort**: is the port were the back end is exposed, which in this case is 80.
+    * **port**: is where the service is exposed. Which is 80 as well.
+ * To link the service to a set of PODs, we use `selector`.
+```yml
+apiVersion: v1
+kind: Service
+metadata:
+  name: back-end
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 80
+  selector:
+    app: myapp
+```
+
 ### LoadBalancer
 * **LoadBalancer** service provisions a load balancer for our service in supported cloud providers.
 * A good example of that would be to distribute load across different web servers.
