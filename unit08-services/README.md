@@ -54,21 +54,20 @@
 
 #### NodePort YAML
 * [Code Example](./code-examples/NodePort/service-definition.yml)
-```yml
-apiVersion: v1
-kind: Service
-metadata:
-  name: myapp-service
-spec:
-  type: NodePort
-  ports:
-    - port: 80
-      targetPort: 80
-      nodePort: 30004
-  selector:
-    app: myapp
-```
-
+    ```yml
+    apiVersion: v1
+    kind: Service
+    metadata:
+    name: myapp-service
+    spec:
+    type: NodePort
+    ports:
+        - port: 80
+        targetPort: 80
+        nodePort: 30004
+    selector:
+        app: myapp
+    ```
 * Create a **Service** based on a YAML definition file
     ```bash
     kubectl create -f ./service-definition.yml
