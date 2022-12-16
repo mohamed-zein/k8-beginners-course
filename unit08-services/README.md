@@ -123,9 +123,59 @@ spec:
   selector:
     app: myapp
 ```
-
+* Create a **Service** based on a YAML definition file
+    ```bash
+    kubectl create -f ./service-definition.yml
+    ```
+* List Services
+    ```bash
+    kubectl get service
+    ```
+* Delete service 
+    ```bash
+    kubectl delete service back-end
+    ```
 ### LoadBalancer
 * **LoadBalancer** service provisions a load balancer for our service in supported cloud providers.
 * A good example of that would be to distribute load across different web servers.
+![Load Balancer](./images/load-balancer.jpg)
+* Quick recap about the two service types:
+    * We have a 3 node cluster with IPs `192.168.1.2`, `192.168.1.3` and `192.168.1.4`.
+    * Our application is two tier, there is a database service and a front-end web service for users to access the application.
+    The default service type -known as **ClusterIP** - makes a service, such as a redis or database service available internally within the kubernetes cluster for other applications to consume.
+    * The next tier in my application happens to be a python based web front-end. This application connects to the backend using Service created for the redis service.
+    * To expose the application to the end users, we create another service of type **NodePort**.
+    * Creating a service of type **NodePort** exposes the application on a high end port of the Node and the users can access the application at any IP of my nodes with the port `30008`.
+* We need to setup a separate Load Balancer VM in your environment.
+* If I happen to be on a supported Cloud Platform, like [Google Cloud Platform](https://cloud.google.com/), I could leverage the native load balancing functionalities of the cloud platform to set this up.
+* If a **LoadBalancer** service is defined on un-supported cluster, it will be acting like a [**NodePort**](#nodeport) service.
+#### YAML Definition 
+```yml
+apiVersion: v1
+kind: Service
+metadata:
+  name: front-end
+
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 80
+  
+  selector:
+    app: myapp
+```
+* Create a **Service** based on a YAML definition file
+    ```bash
+    kubectl create -f ./service-definition.yml
+    ```
+* List Services
+    ```bash
+    kubectl get service
+    ```
+* Delete service 
+    ```bash
+    kubectl delete service front-end
+    ```
 
 [<<Previous](../unit07-k8s-networking/README.md) | [Next>>]()
