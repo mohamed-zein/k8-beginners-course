@@ -76,6 +76,15 @@
     ```bash
     kubectl get service
     ```
+* Details of **Service**
+    ```bash
+    kubectl describe service myapp-service
+    ```
+    * The output of this command has info about the `Endpoints` detected by the service defintion `selector`.
+* Delete service 
+    ```bash
+    kubectl delete service myapp-service
+    ```
 * Get Service details by **minikube**
     ```bash
     minikube service myapp-service
@@ -130,6 +139,10 @@ spec:
 * List Services
     ```bash
     kubectl get service
+    ```
+* Details of **Service**
+    ```bash
+    kubectl describe service myapp-service
     ```
 * Delete service 
     ```bash
