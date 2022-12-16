@@ -1,4 +1,4 @@
-# Command-Line Review Sheet
+# Review Sheet
 ## MiniKube
 * **Start** the MiniKube cluster
     ```bash
@@ -243,6 +243,79 @@ kubectl edit pod nginx-app
 * Rollback a deployment to a previous _Revision_.
     ```bash
     kubectl rollout undo deployment/myapp-deployment
+    ```
+## Services
+### YAML Definition
+#### NodePort
+```yml
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp-service
+spec:
+  type: NodePort
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 30004
+  selector:
+    app: myapp
+```
+#### ClusterIP
+```yml
+apiVersion: v1
+kind: Service
+metadata:
+  name: back-end
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 80
+  selector:
+    app: myapp
+```
+#### LoadBalancer
+```yml
+apiVersion: v1
+kind: Service
+metadata:
+  name: front-end
+
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 80
+  
+  selector:
+    app: myapp
+```
+### Command Lines
+* Create a **Service** based on a YAML definition file
+    ```bash
+    kubectl create -f ./service-definition.yml
+    ```
+* List Services
+    ```bash
+    kubectl get service
+    ```
+* Details of **Service**
+    ```bash
+    kubectl describe service myapp-service
+    ```
+    * The output of this command has info about the `Endpoints` detected by the service defintion `selector`.
+* Delete service 
+    ```bash
+    kubectl delete service myapp-service
+    ```
+* Get Service details by **minikube**
+    ```bash
+    minikube service myapp-service
+    ```
+* Get ONLY Service URL by **minikube**
+    ```bash
+    minikube service myapp-service --url
     ```
 
 [<<< Back to Home](./README.md)

@@ -1,4 +1,4 @@
-# Networking in Kibernates
+# # Unit 7: Networking in Kibernates
 ## Kubernetes Networking - 101
 ![Kubernates Networking - 101](./images/networking-101.jpg)
 At the very basics of networking in Kubernetes. We will start with a single node kubernetes cluster.
@@ -51,4 +51,4 @@ How does it work when you have multiple nodes in a cluster?
 * By using simple routing techniques the cluster networking enables communication between the different PODs or Nodes to meet the networking requirements of kubernetes.
 * Thus all PODs can now communicate to each other using the assigned IP addresses.
 
-[<<Previous](../unit06-k8s-concepts-pods-replicaSets-deployment/README.md) | [Next>>]()
+[<<Previous](../unit06-k8s-concepts-pods-replicaSets-deployment/README.md) | [Next>>](../unit08-services/README.md)
