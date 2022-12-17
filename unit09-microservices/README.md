@@ -45,4 +45,7 @@ Before we deploy our [Sample Application](#sample-application---voting-applicati
         * **voting-app** service.
         * **result-app** service.
 
+### Deployment on Kubernates
+Folder [code-examples](./code-examples/) has the YAML definition of the pods and services.
+
 [<<Previous](../unit08-services/README.md) | [Next>>]()
