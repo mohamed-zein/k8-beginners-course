@@ -16,7 +16,7 @@ The course [Notes and Slides](/Kubernetes-For-Beginners-Mumshad_Mannambeth.pdf)
 6. [Kubernetes Concepts - PODs, ReplicaSets, Deployment](./unit06-k8s-concepts-pods-replicaSets-deployment/README.md).
 7. [Networking in Kubernetes](./unit07-k8s-networking/README.md).
 8. [Services](./unit08-services/README.md)
-9. Microservices Architecture.
+9. [Microservices Architecture](./unit09-microservices/README.md).
 10. Kebernates on Cloud.
 11. Conclusion.
 12. Appendix - Setup Multi Node cluster using Kubeadm.
